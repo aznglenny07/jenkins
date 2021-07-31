@@ -1,0 +1,28 @@
+---
+- name: create_os_users_playbook
+  hosts: linux
+  remote_user: root
+  become: true
+  tasks:
+          - name: add groups
+            group:
+                  name: "{{item}}"
+                  state: present
+            with_items:
+              - devops
+              - networking
+              - developers
+              - engineers
+          - name: add user Lisa
+            user:
+                    name: Lisa
+                    state: present
+                    groups:
+                      - devops
+                      - developers
+          - name: add user Bill
+            user:
+                    name: Bill
+                    state: present
+                    groups:
+                      - engineers
